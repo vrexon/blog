@@ -16,14 +16,6 @@ export default function Form({ addPost }) {
       .then((data) => {
         console.log("Success:", data);
 
-        // addPost({
-        //   id: data.id,
-        //   username: e.target.username.value,
-        //   title: e.target.title.value,
-        //   content: e.target.content.value,
-        //   created_at: new Date().toISOString(),
-        // });
-
         addPost({
           id: data.id,
           username: data.username,
@@ -62,7 +54,7 @@ export default function Form({ addPost }) {
 
       <label
         htmlFor="title"
-        className="block text-sm font-medium text-gray-900"
+        className="block mt-2 text-sm font-medium text-gray-900"
       >
         Cím
       </label>
@@ -79,7 +71,7 @@ export default function Form({ addPost }) {
 
       <label
         htmlFor="content"
-        className="block text-sm font-medium text-gray-900"
+        className="block mt-2 text-sm font-medium text-gray-900"
       >
         Bejegyzés
       </label>
