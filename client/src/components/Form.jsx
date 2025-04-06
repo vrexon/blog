@@ -10,6 +10,11 @@ export default function Form({ addPost }) {
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const [charCount, setCharCount] = useState({
+    username: 0,
+    title: 0,
+  });
+
   const validateForm = (e) => {
     let isValid = true;
     const newErrors = {
@@ -70,6 +75,8 @@ export default function Form({ addPost }) {
         e.target.title.value = "";
         e.target.content.value = "";
 
+        setCharCount({ username: 0, title: 0 });
+
         setIsSubmitting(false);
       })
       .catch((err) => {
@@ -94,10 +101,18 @@ export default function Form({ addPost }) {
           type="text"
           className="block w-full rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300"
           maxLength={30}
+          onChange={(e) =>
+            setCharCount({ ...charCount, username: e.target.value.length })
+          }
         />
-        {errors.username && (
-          <p className="mt-1 text-sm text-red-500">{errors.username}</p>
-        )}
+        <div className="flex justify-between text-xs text-gray-500 text-right mt-1">
+          <div>
+            {errors.username && (
+              <p className="text-red-500">{errors.username}</p>
+            )}
+          </div>
+          {charCount.username}/30
+        </div>
       </div>
 
       <label
@@ -113,10 +128,16 @@ export default function Form({ addPost }) {
           type="text"
           className="block w-full rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300"
           maxLength={200}
+          onChange={(e) =>
+            setCharCount({ ...charCount, title: e.target.value.length })
+          }
         />
-        {errors.title && (
-          <p className="mt-1 text-sm text-red-500">{errors.title}</p>
-        )}
+        <div className="flex justify-between text-xs text-gray-500 text-right mt-1">
+          <div>
+            {errors.title && <p className="text-red-500">{errors.title}</p>}
+          </div>
+          {charCount.title}/200
+        </div>
       </div>
 
       <label
@@ -133,7 +154,7 @@ export default function Form({ addPost }) {
           className="block w-full rounded-md bg-white px-3 py-1.5 text-sm text-gray-900 outline-1 -outline-offset-1 outline-gray-300"
         />
         {errors.content && (
-          <p className="mt-1 text-sm text-red-500">{errors.content}</p>
+          <p className="mt-1 text-xs text-red-500">{errors.content}</p>
         )}
       </div>
 
